@@ -26,6 +26,14 @@ public class BlogController {
   private AuthorService authorService;
 
   // ~~ Article
+
+    //TASK 1
+    @RequestMapping(value = "articles/{articleId}", method = RequestMethod.DELETE)
+    public void deleteArticle(@PathVariable final Integer articleId) {
+        this.articleService.deleteArticle(getArticle(articleId));
+    }
+    //TASK 1
+
   @RequestMapping(value = "articles", method = RequestMethod.GET)
   public List<Article> getAllArticles() {
 	  return this.articleService.findAll();

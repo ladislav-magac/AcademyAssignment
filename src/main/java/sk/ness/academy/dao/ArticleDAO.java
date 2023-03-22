@@ -14,4 +14,9 @@ public interface ArticleDAO {
 
 	  /** Persists {@link Article} into the DB */
 	  void persist(Article article);
-	}
+
+	  //TASK 1
+	  /** Deletes {@link Article} */
+	  void delete(Article article);
+	  //TASK 1
+}
