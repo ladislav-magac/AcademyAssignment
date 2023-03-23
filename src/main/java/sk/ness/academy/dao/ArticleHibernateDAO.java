@@ -38,4 +38,12 @@ public class ArticleHibernateDAO implements ArticleDAO {
   }
   //TASK 1
 
+  //TASK 4
+  @SuppressWarnings("unchecked")
+  @Override
+  public List<Article> findByText(final String searchText) {
+    return this.sessionFactory.getCurrentSession().createSQLQuery("select * from articles where author like'%" + searchText + "%' or title like '%" + searchText + "%' or text like '%" + searchText + "%'").addEntity(Article.class).list();
+  }
+  //TASK 4
+
 }

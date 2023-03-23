@@ -49,4 +49,11 @@ public class ArticleServiceImpl implements ArticleService {
   }
   //TASK 1
 
+  //TASK 4
+  @Override
+  public List<Article> findByText(final String searchText) {
+    return this.articleDAO.findByText(searchText);
+  }
+  //TASK 4
+
 }

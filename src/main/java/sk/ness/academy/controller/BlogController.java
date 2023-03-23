@@ -45,7 +45,10 @@ public class BlogController {
 
   @RequestMapping(value = "articles/search/{searchText}", method = RequestMethod.GET)
   public List<Article> searchArticle(@PathVariable final String searchText) {
-	  throw new UnsupportedOperationException("Full text search not implemented.");
+      //TASK 4
+      return this.articleService.findByText(searchText);
+	  //throw new UnsupportedOperationException("Full text search not implemented.");
+      //TASK 4
   }
 
   @RequestMapping(value = "articles", method = RequestMethod.PUT)

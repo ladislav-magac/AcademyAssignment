@@ -22,4 +22,9 @@ public interface ArticleService {
 	  /** Deletes {@link Article} */
 	  void deleteArticle(Article article);
 	  //TASK 1
+
+	  //TASK 4
+	  /** Returns all {@link Article}s where author, title or text contains the searched text */
+	  List<Article> findByText(String searchText);
+	  //TASK 4
 }
