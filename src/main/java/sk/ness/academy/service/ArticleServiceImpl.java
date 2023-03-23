@@ -1,12 +1,10 @@
 package sk.ness.academy.service;
 
-import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 
-import com.google.gson.Gson;
 import org.springframework.stereotype.Service;
 
 import sk.ness.academy.dao.ArticleDAO;
@@ -37,15 +35,15 @@ public class ArticleServiceImpl implements ArticleService {
   @Override
   public void ingestArticles(final String jsonArticles) {
     //TASK 3
-    Arrays.stream(new Gson().fromJson(jsonArticles, Article[].class)).forEach(A -> this.articleDAO.persist(A));
+    this.articleDAO.ingestArticles(jsonArticles);
     //throw new UnsupportedOperationException("Article ingesting not implemented.");
     //TASK 3
   }
 
   //TASK 1
   @Override
-  public void deleteArticle(final Article article) {
-    this.articleDAO.delete(article);
+  public void deleteByID(final Integer articleId) {
+    this.articleDAO.deleteByID(articleId);
   }
   //TASK 1
 

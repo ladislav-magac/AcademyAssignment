@@ -19,8 +19,8 @@ public interface ArticleService {
 	  void ingestArticles(String jsonArticles);
 
 	  //TASK 1
-	  /** Deletes {@link Article} */
-	  void deleteArticle(Article article);
+	  /** Deletes {@link Article} with provided ID */
+	  void deleteByID(Integer articleId);
 	  //TASK 1
 
 	  //TASK 4

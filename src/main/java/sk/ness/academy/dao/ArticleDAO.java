@@ -16,9 +16,15 @@ public interface ArticleDAO {
 	  void persist(Article article);
 
 	  //TASK 1
-	  /** Deletes {@link Article} */
-	  void delete(Article article);
+	  /** Deletes {@link Article} with provided ID */
+	  void deleteByID(Integer articleId);
 	  //TASK 1
+
+	  //TASK 3
+	  /** Creates new {@link Article}s by ingesting all articles from json */
+	  void ingestArticles(String jsonArticles);
+	  //TASK 3
+
 
 	  //TASK 4
 	  /** Returns all {@link Article}s where author, title or text contains the searched text */

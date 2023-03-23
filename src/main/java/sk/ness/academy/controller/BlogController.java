@@ -29,7 +29,7 @@ public class BlogController {
   //TASK 1
   @RequestMapping(value = "articles/{articleId}", method = RequestMethod.DELETE)
   public void deleteArticle(@PathVariable final Integer articleId) {
-      this.articleService.deleteArticle(getArticle(articleId));
+      this.articleService.deleteByID(articleId);
   }
   //TASK 1
 
@@ -64,7 +64,10 @@ public class BlogController {
 
   @RequestMapping(value = "authors/stats", method = RequestMethod.GET)
   public List<AuthorStats> authorStats() {
-	  throw new UnsupportedOperationException("Author statistics not implemented.");
+      //TASK 5
+      return this.authorService.authorStats();
+	  //throw new UnsupportedOperationException("Author statistics not implemented.");
+      //TASK 5
   }
 
 }

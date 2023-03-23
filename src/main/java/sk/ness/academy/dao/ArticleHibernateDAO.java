@@ -1,9 +1,11 @@
 package sk.ness.academy.dao;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.google.gson.Gson;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
@@ -33,10 +35,17 @@ public class ArticleHibernateDAO implements ArticleDAO {
 
   //TASK 1
   @Override
-  public void delete(Article article) {
-    this.sessionFactory.getCurrentSession().delete(article);
+  public void deleteByID(final Integer articleId) {
+    this.sessionFactory.getCurrentSession().delete(this.sessionFactory.getCurrentSession().get(Article.class, articleId));
   }
   //TASK 1
+
+  //TASK 3
+  @Override
+  public void ingestArticles(String jsonArticles) {
+    Arrays.stream(new Gson().fromJson(jsonArticles, Article[].class)).forEach(A -> this.sessionFactory.getCurrentSession().saveOrUpdate(A));
+  }
+  //TASK 3
 
   //TASK 4
   @SuppressWarnings("unchecked")
