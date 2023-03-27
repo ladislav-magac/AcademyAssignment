@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import sk.ness.academy.domain.Article;
+import sk.ness.academy.domain.Comment;
 import sk.ness.academy.dto.Author;
 import sk.ness.academy.dto.AuthorStats;
 import sk.ness.academy.service.ArticleService;
 import sk.ness.academy.service.AuthorService;
+import sk.ness.academy.service.CommentService;
 
 @RestController
 public class BlogController {
@@ -24,6 +26,9 @@ public class BlogController {
 
   @Resource
   private AuthorService authorService;
+
+  @Resource
+  private CommentService commentService;
 
   // ~~ Article
   //TASK 1
@@ -69,5 +74,23 @@ public class BlogController {
 	  //throw new UnsupportedOperationException("Author statistics not implemented.");
       //TASK 5
   }
+
+  //TASK 2
+  // ~~ Comment
+  @RequestMapping(value = "comments/{commentId}", method = RequestMethod.DELETE)
+  public void deleteComment(@PathVariable final Integer commentId) {
+    this.commentService.deleteByID(commentId);
+  }
+
+  @RequestMapping(value = "comments", method = RequestMethod.GET)
+  public List<Comment> getAllComments() {
+    return this.commentService.findAll();
+  }
+
+  @RequestMapping(value = "comments/{articleId}", method = RequestMethod.PUT)
+  public void addComment(@PathVariable final Integer articleId, @RequestBody final Comment comment) {
+    this.commentService.createComment(articleId, comment);
+  }
+  //TASK 2
 
 }

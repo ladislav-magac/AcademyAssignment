@@ -1,16 +1,15 @@
+//TASK 2
 package sk.ness.academy.domain;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
-@Table(name = "articles")
-@SequenceGenerator(name = "articles_seq_store", sequenceName = "article_seq", allocationSize = 1)
-public class Article {
+@Table(name = "comments")
+@SequenceGenerator(name = "comments_seq_store", sequenceName = "comment_seq", allocationSize = 1)
+public class Comment {
 
-  public Article() {
+  public Comment() {
     this.createTimestamp = new Date();
   }
 
@@ -18,9 +17,6 @@ public class Article {
   @Column(name = "id", unique = true, nullable = false, precision = 10, scale = 0)
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "articles_seq_store")
   private Integer id;
-
-  @Column(name = "title", length = 250)
-  private String title;
 
   @Column(name = "text", length = 2000)
   private String text;
@@ -32,26 +28,12 @@ public class Article {
   @Temporal(TemporalType.TIMESTAMP)
   private Date createTimestamp;
 
-  //TASK 2
-  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-  @JoinColumn(name = "articleId")
-  private List<Comment> comments = new ArrayList<>();
-  //TASK 2
-
   public Integer getId() {
     return this.id;
   }
 
   public void setId(final Integer id) {
     this.id = id;
-  }
-
-  public String getTitle() {
-    return this.title;
-  }
-
-  public void setTitle(final String title) {
-    this.title = title;
   }
 
   public String getText() {
@@ -78,13 +60,5 @@ public class Article {
     this.createTimestamp = createTimestamp;
   }
 
-  //TASK 2
-  public List<Comment> getComments() {
-    return comments;
-  }
-
-  public void setComments(List<Comment> comments) {
-    this.comments = comments;
-  }
-  //TASK 2
 }
+//TASK 2
