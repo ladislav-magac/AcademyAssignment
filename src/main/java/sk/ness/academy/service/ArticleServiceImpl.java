@@ -1,5 +1,6 @@
 package sk.ness.academy.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -8,6 +9,7 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import sk.ness.academy.dao.ArticleDAO;
+import sk.ness.academy.dao.CommentDAO;
 import sk.ness.academy.domain.Article;
 
 @Service
@@ -17,9 +19,18 @@ public class ArticleServiceImpl implements ArticleService {
   @Resource
   private ArticleDAO articleDAO;
 
+  @Resource
+  private CommentDAO commentDAO;
+
   @Override
   public Article findByID(final Integer articleId) {
-	  return this.articleDAO.findByID(articleId);
+    Article article = this.articleDAO.findByID(articleId);
+    if (article != null) {
+      article.setComments(this.commentDAO.findByArticleID(articleId));
+      return article;
+    } else {
+      return null;
+    }
   }
 
   @Override
@@ -50,7 +61,13 @@ public class ArticleServiceImpl implements ArticleService {
   //TASK 4
   @Override
   public List<Article> findByText(final String searchText) {
-    return this.articleDAO.findByText(searchText);
+    List<Article> list = this.articleDAO.findByText(searchText);
+    List<Article> articles = new ArrayList<>();
+    for (Article article : list) {
+      article.setComments(this.commentDAO.findByArticleID(article.getId()));
+      articles.add(article);
+    }
+    return articles;
   }
   //TASK 4
 

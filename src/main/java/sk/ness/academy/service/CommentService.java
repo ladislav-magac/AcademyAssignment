@@ -15,5 +15,8 @@ public interface CommentService {
 
 	  /** Returns all available {@link Comment}s */
 	  List<Comment> findAll();
+
+	  /** Returns {@link Comment} with provided ID */
+	  Comment findByID(Integer commentId);
 }
 //TASK 2

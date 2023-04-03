@@ -33,7 +33,7 @@ public class Article {
   private Date createTimestamp;
 
   //TASK 2
-  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "articleId")
   private List<Comment> comments = new ArrayList<>();
   //TASK 2

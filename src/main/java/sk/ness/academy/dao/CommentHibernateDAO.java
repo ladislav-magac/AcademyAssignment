@@ -20,9 +20,20 @@ public class CommentHibernateDAO implements CommentDAO {
     return this.sessionFactory.getCurrentSession().createSQLQuery("select * from comments").addEntity(Comment.class).list();
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
+  public List<Comment> findByArticleID(final Integer articleId) {
+    return this.sessionFactory.getCurrentSession().createSQLQuery("select * from comments where articleId = " + articleId).addEntity(Comment.class).list();
+  }
+
   @Override
   public void deleteById(final Integer commentId) {
     this.sessionFactory.getCurrentSession().delete(this.sessionFactory.getCurrentSession().get(Comment.class, commentId));
+  }
+
+  @Override
+  public Comment findByID(Integer commentId) {
+    return (Comment) this.sessionFactory.getCurrentSession().get(Comment.class, commentId);
   }
 
 }

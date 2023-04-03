@@ -40,5 +40,10 @@ public class CommentServiceImpl implements CommentService {
     return this.commentDAO.findAll();
   }
 
+  @Override
+  public Comment findByID(Integer commentId) {
+    return this.commentDAO.findByID(commentId);
+  }
+
 }
 //TASK 2
