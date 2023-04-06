@@ -1,4 +1,3 @@
-//TASK 6
 package sk.ness.academy.exception;
 
 import org.springframework.http.HttpStatus;
@@ -46,4 +45,3 @@ public class CommentExceptionController {
         return new ResponseEntity<>("{\n\"detail\": \"Not found.\"\n}", HttpStatus.NOT_FOUND);
     }
 }
-//TASK 6

@@ -1,74 +1,84 @@
 package sk.ness.academy.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.transaction.Transactional;
 
+import com.google.gson.Gson;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import sk.ness.academy.dao.ArticleDAO;
-import sk.ness.academy.dao.CommentDAO;
 import sk.ness.academy.domain.Article;
+import sk.ness.academy.exception.ArticleBodyNotFoundException;
+import sk.ness.academy.exception.ArticleNotFoundException;
+import sk.ness.academy.exception.ArticlesNotFoundException;
+import sk.ness.academy.repository.ArticleRepository;
+import sk.ness.academy.repository.CommentRepository;
+import sk.ness.academy.repository.NoComment;
 
 @Service
 @Transactional
 public class ArticleServiceImpl implements ArticleService {
 
-  @Resource
-  private ArticleDAO articleDAO;
+  @Autowired
+  ArticleRepository articleRepository;
 
-  @Resource
-  private CommentDAO commentDAO;
+  @Autowired
+  CommentRepository commentRepository;
 
   @Override
   public Article findByID(final Integer articleId) {
-    Article article = this.articleDAO.findByID(articleId);
-    if (article != null) {
-      article.setComments(this.commentDAO.findByArticleID(articleId));
-      return article;
-    } else {
-      return null;
-    }
+    Article article = this.articleRepository.findById(articleId).orElseThrow(ArticleNotFoundException::new);
+    article.setComments(this.commentRepository.findByArticleId(articleId));
+    return article;
   }
 
   @Override
-  public List<Article> findAll() {
-	  return this.articleDAO.findAll();
+  public List<NoComment> findAll() {
+    if (this.articleRepository.findAllProjectedBy().isEmpty()) {
+      throw new ArticlesNotFoundException();
+    }
+    return this.articleRepository.findAllProjectedBy();
   }
 
   @Override
   public void createArticle(final Article article) {
-	  this.articleDAO.persist(article);
+    if     (article.getAuthor() == null   ||
+            article.getText()   == null   ||
+            article.getTitle()  == null   ||
+            article.getAuthor().isBlank() ||
+            article.getText()  .isBlank() ||
+            article.getTitle() .isBlank()) {
+      throw new ArticleBodyNotFoundException(article);
+    }
+    this.articleRepository.saveAndFlush(article);
   }
 
   @Override
   public void ingestArticles(final String jsonArticles) {
-    //TASK 3
-    this.articleDAO.ingestArticles(jsonArticles);
-    //throw new UnsupportedOperationException("Article ingesting not implemented.");
-    //TASK 3
+    Arrays.stream(new Gson().fromJson(jsonArticles, Article[].class)).forEach(A -> this.articleRepository.saveAndFlush(A));
   }
 
-  //TASK 1
   @Override
   public void deleteByID(final Integer articleId) {
-    this.articleDAO.deleteByID(articleId);
+    this.articleRepository.findById(articleId).orElseThrow(ArticleNotFoundException::new);
+    this.articleRepository.deleteById(articleId);
   }
-  //TASK 1
 
-  //TASK 4
   @Override
   public List<Article> findByText(final String searchText) {
-    List<Article> list = this.articleDAO.findByText(searchText);
+    List<Article> list = this.articleRepository.findByAuthorContainingOrTitleContainingOrTextContaining(searchText, searchText, searchText);
+    if (list.isEmpty()) {
+      throw new ArticlesNotFoundException();
+    }
     List<Article> articles = new ArrayList<>();
     for (Article article : list) {
-      article.setComments(this.commentDAO.findByArticleID(article.getId()));
+      article.setComments(this.commentRepository.findByArticleId(article.getId()));
       articles.add(article);
     }
     return articles;
   }
-  //TASK 4
 
 }

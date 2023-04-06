@@ -10,8 +10,6 @@ public interface AuthorService {
 	  /** Returns all available {@link Author}s */
 	  List<Author> findAll();
 
-	  //TASK 5
 	  /** Returns all available {@link AuthorStats}s */
 	  List<AuthorStats> authorStats();
-	  //TASK 5
 }

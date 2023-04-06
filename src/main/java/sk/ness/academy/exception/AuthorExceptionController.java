@@ -1,4 +1,3 @@
-//TASK 6
 package sk.ness.academy.exception;
 
 import org.springframework.http.HttpStatus;
@@ -13,4 +12,3 @@ public class AuthorExceptionController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
-//TASK 6

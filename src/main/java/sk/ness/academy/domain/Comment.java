@@ -1,4 +1,3 @@
-//TASK 2
 package sk.ness.academy.domain;
 
 import javax.persistence.*;
@@ -61,4 +60,3 @@ public class Comment {
   }
 
 }
-//TASK 2

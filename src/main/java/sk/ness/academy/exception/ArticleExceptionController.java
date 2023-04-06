@@ -1,4 +1,3 @@
-//TASK 6
 package sk.ness.academy.exception;
 
 import org.springframework.http.HttpStatus;
@@ -51,4 +50,3 @@ public class ArticleExceptionController {
         return new ResponseEntity<>("{\n    \"detail\": \"Not found.\"\n}", HttpStatus.NOT_FOUND);
     }
 }
-//TASK 6

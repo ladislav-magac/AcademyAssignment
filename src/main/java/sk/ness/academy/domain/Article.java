@@ -32,11 +32,9 @@ public class Article {
   @Temporal(TemporalType.TIMESTAMP)
   private Date createTimestamp;
 
-  //TASK 2
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @JoinColumn(name = "articleId")
+  @JoinColumn(name = "article_id")
   private List<Comment> comments = new ArrayList<>();
-  //TASK 2
 
   public Integer getId() {
     return this.id;
@@ -78,7 +76,6 @@ public class Article {
     this.createTimestamp = createTimestamp;
   }
 
-  //TASK 2
   public List<Comment> getComments() {
     return comments;
   }
@@ -86,5 +83,4 @@ public class Article {
   public void setComments(List<Comment> comments) {
     this.comments = comments;
   }
-  //TASK 2
 }

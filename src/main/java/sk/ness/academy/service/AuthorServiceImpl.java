@@ -2,32 +2,38 @@ package sk.ness.academy.service;
 
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import sk.ness.academy.dao.AuthorDAO;
 import sk.ness.academy.dto.Author;
 import sk.ness.academy.dto.AuthorStats;
+import sk.ness.academy.exception.AuthorsNotFoundException;
+import sk.ness.academy.repository.ArticleRepository;
 
 @Service
 @Transactional
 public class AuthorServiceImpl implements AuthorService {
 
-  @Resource
-  private AuthorDAO authorDAO;
+  @Autowired
+  ArticleRepository articleRepository;
 
   @Override
   public List<Author> findAll() {
-    return this.authorDAO.findAll();
+    if (this.articleRepository.findAuthors().isEmpty()) {
+      throw new AuthorsNotFoundException();
+    }
+    return this.articleRepository.findAuthors();
   }
 
-  //TASK 5
   @Override
   public List<AuthorStats> authorStats() {
-    return this.authorDAO.authorStats();
+    //BONUS
+    if (this.articleRepository.findAuthors().isEmpty()) {
+      throw new AuthorsNotFoundException();
+    }
+    return this.articleRepository.authorStats();
   }
-  //TASK 5
 
 }

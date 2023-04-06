@@ -1,4 +1,3 @@
-//TASK 6
 package sk.ness.academy.exception;
 
 import sk.ness.academy.domain.Article;
@@ -16,4 +15,3 @@ public class ArticleBodyNotFoundException extends RuntimeException{
         return article;
     }
 }
-//TASK 6

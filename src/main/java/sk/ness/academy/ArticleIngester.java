@@ -27,11 +27,7 @@ public class ArticleIngester {
 
       final ArticleService articleService = context.getBean(ArticleService.class);
 
-      // Load file with articles and ingest
-
-      //TASK 3
       articleService.ingestArticles(Files.readString(Path.of("articles_to_ingest.txt")));
-      //TASK 3
     } catch (IOException e) {
       throw new RuntimeException(e);
     }

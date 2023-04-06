@@ -1,7 +1,5 @@
-//TASK 6
 package sk.ness.academy.exception;
 
-import sk.ness.academy.domain.Article;
 import sk.ness.academy.domain.Comment;
 
 public class CommentBodyNotFoundException extends RuntimeException{
@@ -17,4 +15,3 @@ public class CommentBodyNotFoundException extends RuntimeException{
         return comment;
     }
 }
-//TASK 6

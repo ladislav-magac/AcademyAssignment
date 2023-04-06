@@ -1,4 +1,3 @@
-//TASK 2
 package sk.ness.academy.service;
 
 import sk.ness.academy.domain.Comment;
@@ -19,4 +18,3 @@ public interface CommentService {
 	  /** Returns {@link Comment} with provided ID */
 	  Comment findByID(Integer commentId);
 }
-//TASK 2

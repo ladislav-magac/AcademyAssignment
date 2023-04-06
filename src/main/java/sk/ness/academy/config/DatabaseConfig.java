@@ -5,11 +5,13 @@ import javax.sql.DataSource;
 import org.hibernate.SessionFactory;
 import org.hsqldb.jdbc.JDBCDriver;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 
+@EnableJpaRepositories(basePackages = "sk.ness.academy.repository", entityManagerFactoryRef = "sessionFactory")
 public class DatabaseConfig {
 
   @Bean(name = "sessionFactory")
@@ -24,7 +26,7 @@ public class DatabaseConfig {
 
     final LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
     sessionFactory.setDataSource(dataSource());
-    sessionFactory.setPackagesToScan(new String[] { "sk.ness.academy.domain" });
+    sessionFactory.setPackagesToScan("sk.ness.academy.domain");
     sessionFactory.setHibernateProperties(configuration.getProperties());
 
     return sessionFactory;
