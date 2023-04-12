@@ -8,8 +8,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
+import sk.ness.academy.config.TestDatabaseConfig;
 import sk.ness.academy.dao.ArticleDAO;
+import sk.ness.academy.dao.ArticleHibernateDAO;
 import sk.ness.academy.dao.CommentDAO;
+import sk.ness.academy.dao.CommentHibernateDAO;
 import sk.ness.academy.domain.Article;
 import sk.ness.academy.domain.Comment;
 
@@ -17,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
+@ContextConfiguration(classes = { TestDatabaseConfig.class, CommentHibernateDAO.class })
 class CommentServiceImplTest {
 
     @Mock

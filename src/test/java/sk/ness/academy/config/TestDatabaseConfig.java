@@ -1,16 +1,17 @@
 package sk.ness.academy.config;
 
-import javax.sql.DataSource;
-
 import org.hibernate.SessionFactory;
 import org.hsqldb.jdbc.JDBCDriver;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 
-public class DatabaseConfig {
+import javax.sql.DataSource;
+@Configuration
+public class TestDatabaseConfig {
 
   @Bean(name = "sessionFactory")
   public LocalSessionFactoryBean sessionFactory() {
@@ -32,7 +33,7 @@ public class DatabaseConfig {
 
   @Bean(name = "dataSource")
   public DataSource dataSource() {
-    return new SimpleDriverDataSource(new JDBCDriver(), "jdbc:hsqldb:file:mydb;shutdown=true", "sa", "");
+    return new SimpleDriverDataSource(new JDBCDriver(), "jdbc:hsqldb:file:testdb;shutdown=true", "sa", "");
   }
 
   @Bean(name = "transactionManager")
